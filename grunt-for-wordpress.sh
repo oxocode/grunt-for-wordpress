@@ -51,17 +51,23 @@ then
 	npm cache clean; npm update
 
 	# Grunt
-	npm install async --save-dev
-	npm install colors --save-dev
-	npm install glob --save-dev
-	npm install grunt --save-dev
-	npm install grunt-cli --save-dev
-	npm install grunt-init --save-dev
+	npm install -g grunt-cli --save-dev
+	npm install -g grunt-init --save-dev
+
+	# Cygwin is the best git installer for Windows. That will need to be done manually.
+	# Check if git is installed.
+	git --version 2>&1 >/dev/null
+	GIT_IS_AVAILABLE=$?
+	if [ $GIT_IS_AVAILABLE -eq 0 ]; then # if git is available
+	# Git-flow
+	wget -q -O - --no-check-certificate https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-installer.sh | bash
 
 	# 10up Grunt scripts
 	# Run as sub-commands so script continues if they already exist
 	$(git clone git@github.com:10up/grunt-wp-theme.git ~/.grunt-init/wp-theme)
 	$(git clone git@github.com:10up/grunt-wp-plugin.git ~/.grunt-init/wp-plugin)
+
+	fi # git is available
 fi
 else
 	## Not Mac or Windows
